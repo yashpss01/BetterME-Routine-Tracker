@@ -6,10 +6,12 @@ const User = require('../models/User');
 const authMiddleware = require('../middleware/auth');
 
 // TODO: Move secret to config file properly later
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret_fallback_123';
+console.log('Auth Route Loaded. JWT_SECRET present:', !!process.env.JWT_SECRET);
 
 // Register a new user
 router.post('/signup', async (req, res) => {
+    console.log('Signup attempt:', req.body);
     const { username, password } = req.body;
 
     // quick validation

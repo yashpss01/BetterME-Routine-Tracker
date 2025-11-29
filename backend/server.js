@@ -8,6 +8,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Request logging middleware
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    console.log('Body:', req.body);
+    next();
+});
+
 // Connect DB
 const db = process.env.MONGODB_URI;
 mongoose.connect(db)

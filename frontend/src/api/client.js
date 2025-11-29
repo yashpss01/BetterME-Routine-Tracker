@@ -1,25 +1,8 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
 
-// const BASE_URL = 'http://localhost:3000/api';
-const BASE_URL = "http://192.168.1.4:3000/api"; // my local ip
-
+// Using local IP to allow connection from physical devices on the same network
 const client = axios.create({
-  baseURL: BASE_URL,
+    baseURL: 'http://192.168.139.13:3000/api',
 });
-
-// Add token to requests
-client.interceptors.request.use(
-  async (config) => {
-    const token = await AsyncStorage.getItem("token");
-    if (token) {
-      config.headers["x-auth-token"] = token;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 
 export default client;
